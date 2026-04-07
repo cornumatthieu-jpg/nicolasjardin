@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nicolas Cornet - Jardinier à Mons-Boubert</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #2d7a3a;
+      --green-light: #4caf50;
+      --green-pale: #e8f5e9;
+      --dark: #1a1a1a;
+      --gray: #666;
+      --light: #f9f9f7;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 70px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.07);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--dark);
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--green-pale);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray);
+      font-size: 0.95rem;
+      font-weight: 400;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--green); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80') center/cover no-repeat;
+      transform: scale(1.05);
+      animation: zoomOut 8s ease-out forwards;
+    }
+
+    @keyframes zoomOut {
+      from { transform: scale(1.1); }
+      to { transform: scale(1.0); }
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.6) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 20px;
+      animation: fadeUp 1s ease 0.3s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 16px 40px;
+      background: var(--green);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(45,122,58,0.4);
+    }
+
+    .btn-primary:hover {
+      background: #235e2c;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(45,122,58,0.5);
+    }
+
+    /* SECTIONS */
+    section { padding: 90px 5%; }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: var(--dark);
+    }
+
+    .section-header p {
+      color: var(--gray);
+      font-size: 1rem;
+      font-weight: 300;
+    }
+
+    /* SERVICES */
+    #services { background: var(--white); }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid #e8e8e8;
+      border-radius: 16px;
+      padding: 36px 32px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+
+    .service-icon {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .service-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+
+    .service-card p {
+      color: var(--gray);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* TÉMOIGNAGES */
+    #temoignages { background: var(--light); }
+
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+    }
+
+    .testimonial-card blockquote {
+      font-style: italic;
+      color: var(--dark);
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .testimonial-card cite {
+      color: var(--green);
+      font-weight: 500;
+      font-style: normal;
+      font-size: 0.95rem;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--white); }
+
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 60px;
+      max-width: 1000px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .contact-info { display: flex; flex-direction: column; gap: 20px; }
+
+    .info-card {
+      background: var(--light);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .info-card .info-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .info-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--green-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .info-card h4 {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .info-card p {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .hours-card { background: var(--light); border-radius: 16px; padding: 28px; }
+    .hours-card h3 { font-weight: 600; font-size: 1rem; margin-bottom: 12px; }
+    .hours-card p { color: var(--gray); font-size: 0.95rem; line-height: 1.8; font-weight: 300; }
+
+    /* FORM */
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-group label {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--dark);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 14px 16px;
+      border: 1.5px solid #e0e0e0;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--green);
+    }
+
+    .form-group textarea { min-height: 140px; }
+
+    .btn-submit {
+      padding: 16px;
+      background: var(--green);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-submit:hover {
+      background: #235e2c;
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1a1a1a;
+      color: rgba(255,255,255,0.7);
+      padding: 60px 5% 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+    }
+
+    .footer-brand .logo { color: white; margin-bottom: 12px; display: inline-flex; }
+    .footer-brand p { font-size: 0.9rem; font-weight: 300; line-height: 1.6; }
+
+    .footer-col h4 {
+      color: white;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li { font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+    .footer-col ul a { color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s; }
+    .footer-col ul a:hover { color: var(--green-light); }
+
+    .footer-bottom {
+      text-align: center;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .contact-wrapper { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <div class="logo-icon">🌿</div>
+      Nicolas Cornet - Jardinier
+    </a>
+    <ul class="nav-links">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#temoignages">Témoignages</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="accueil" class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Nicolas Cornet<br>Jardinier à Mons-Boubert</h1>
+      <p>Créez et entretenez votre jardin de rêve</p>
+      <a href="#contact" class="btn-primary">Contactez-moi</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="section-header">
+      <h2>Mes Services</h2>
+      <p>Des prestations complètes pour tous vos besoins en jardinage</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">✂️</span>
+        <h3>Entretien de jardin</h3>
+        <p>Taille, tonte, désherbage et entretien régulier de vos espaces verts pour un jardin toujours impeccable.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌱</span>
+        <h3>Création de jardins</h3>
+        <p>Conception et réalisation de jardins sur mesure, adaptés à vos envies et à votre environnement.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">🌳</span>
+        <h3>Désouchage</h3>
+        <p>Enlèvement professionnel de souches d'arbres avec du matériel adapté pour un terrain propre et prêt.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TÉMOIGNAGES -->
+  <section id="temoignages">
+    <div class="section-header">
+      <h2>Témoignages</h2>
+      <p>Ce que mes clients disent de mon travail</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <blockquote>"Ponctuel, courageux, qui a tout son matériel, efficace, propre"</blockquote>
+        <cite>— Stéphanie</cite>
+      </div>
+      <div class="testimonial-card">
+        <blockquote>"Ponctuel, courageux, qui a tout son matériel, efficace, propre"</blockquote>
+        <cite>— Yann</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <h2>Contactez-moi</h2>
+      <p>N'hésitez pas à me contacter pour discuter de votre projet</p>
+    </div>
+    <div class="contact-wrapper">
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-row">
+            <div class="info-icon">📞</div>
+            <div>
+              <h4>Téléphone</h4>
+              <p>0677399943</p>
+            </div>
+          </div>
+        </div>
+        <div class="hours-card">
+          <h3>Horaires d'intervention</h3>
+          <p>Du lundi au samedi<br>Sur rendez-vous</p>
+        </div>
+      </div>
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" placeholder="Votre nom" required="">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="votre.email@exemple.com" required="">
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Décrivez votre projet..." required=""></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Envoyer le message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="logo">
+          <div class="logo-icon">🌿</div>
+          Nicolas Cornet
+        </a>
+        <p>Créez et entretenez votre jardin de rêve</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li>📞 0677399943</li>
+          <li>📍 Mons-Boubert</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Liens rapides</h4>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#temoignages">Témoignages</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Nicolas Cornet - Jardinier. Tous droits réservés.
+    </div>
+  </footer>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      alert('Message envoyé ! Nicolas vous contactera rapidement.');
+      e.target.reset();
+    }
+  </script>
+
+</body></html>
